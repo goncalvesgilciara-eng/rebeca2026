@@ -1,23 +1,15 @@
 import pandas as pd
 import plotly.express as px
 import streamlit as st
+import plotly.io as pio
 
-st.set_page_config(layout="wide")
+pio.templates.default = 'plotly'
 
-st.title("Casos Acumulados de Covid-19")
+df = pd.read_csv('WHO_time_series.csv')
 
-df = pd.read_csv("WHO_time_series.csv")
-df["Date_reported"] = pd.to_datetime(df["Date_reported"])
+df['Date_reported'] = pd.to_datetime(df['Date_reported'])
 
-paises = df["Country"].unique()[:5]
-df = df[df["Country"].isin(paises)]
+fig1 = px.line(df, x='Date_reported', y='Cumulative_cases', color='Country', title='Casos Acumulados de Covid-19-Ano 2020')
+fig1.update_layout(xaxis_title='Data', yaxis_title='Casos Acumulados')
 
-fig = px.line(
-    df,
-    x="Date_reported",
-    y="Cumulative_cases",
-    color="Country"
-)
-
-with st.container():
-    st.plotly_chart(fig, use_container_width=True, key="grafico_covid")
+st.plotly_chart(fig1, use_container_width=True)

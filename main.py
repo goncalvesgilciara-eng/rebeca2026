@@ -3,6 +3,8 @@ import plotly.express as px
 import streamlit as st
 import plotly.io as pio
 
+pio.templates.default = 'plotly'
+
 df = pd.read_csv('WHO_time_series.csv')
 
 df['Date_reported'] = pd.to_datetime(df['Date_reported'])

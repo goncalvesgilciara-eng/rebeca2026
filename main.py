@@ -1,6 +1,5 @@
 import pandas as pd
 import streamlit as st
-import plotly.io as pio
 
 pio.templates.default = 'plotly'
 
